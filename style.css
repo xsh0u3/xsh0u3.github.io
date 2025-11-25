@@ -8,11 +8,20 @@
 html[data-theme="dark"]{ background: var(--bg); color: var(--text); }
 html[data-theme="light"]{ background: var(--bg-light); color: var(--text-light); }
 
-body{
-  margin:0; min-height:100vh; font-family: Inter, system-ui, Arial, sans-serif;
-  display:flex; justify-content:center; align-items:flex-start; padding:28px 18px;
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, system-ui, Arial, sans-serif;
+  background: inherit;
+  color: inherit;
+
+  display: flex;
+  flex-direction: column;   /* put nav on top, content below */
+  align-items: center;      /* center both nav + container */
+  padding: 28px 18px;
   transition: background .25s ease, color .25s ease;
 }
+
 .container{ width:100%; max-width:1000px; }
 
 /* NAV */
