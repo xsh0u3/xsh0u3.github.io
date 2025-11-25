@@ -1,0 +1,11 @@
+body {
+  background: #0f172a;
+  color: #e2e8f0;
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: auto;
+  padding: 30px;
+}
+
+a { color: #38bdf8; }
+section { margin-top: 30px; }
