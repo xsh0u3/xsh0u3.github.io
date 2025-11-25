@@ -1,33 +1,111 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>xsh0u3 — site</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>xsh0u3 — home</title>
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
-  <div class="container">
+  <header class="nav">
+    <div class="nav-left">
+      <a class="brand" href="#">xsh0u3</a>
+      <nav class="links">
+        <a href="#home">Home</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
 
-    <header>
-      <h1>Welcome to my site</h1>
-      <p>Just testing stuff out.</p>
-    </header>
+    <div class="nav-right">
+      <button id="themeToggle" aria-label="Toggle theme">🌗</button>
+    </div>
+  </header>
 
-    <main>
-      <section>
-        <h2>Random things</h2>
-        <ul>
-          <li><a href="#">Test link 1</a></li>
-          <li><a href="#">Test link 2</a></li>
-        </ul>
-      </section>
-    </main>
+  <main class="container">
+    <section id="home" class="hero appear">
+      <div class="hero-text">
+        <h1>Welcome — test site</h1>
+        <p class="muted">A small spot to host projects, notes, and whatever experiments I feel like.</p>
 
-    <footer>
-      <small>Made by xsh0u3</small>
+        <div class="cta-row">
+          <a class="btn" href="#projects">See projects</a>
+          <a class="btn ghost" href="#contact">Contact me</a>
+        </div>
+      </div>
+
+      <!-- demo image: uploaded file path (will be transformed to a URL by the system) -->
+      <figure class="hero-img">
+        <img src="/mnt/data/0ccb8be0-96bd-4d58-8fab-9df4b60f2eb7.png" alt="demo screenshot">
+        <figcaption class="muted small">Quick preview (local image)</figcaption>
+      </figure>
+    </section>
+
+    <section id="projects" class="cards appear">
+      <h2>Projects</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Project One</h3>
+          <p class="muted">Short description. Add a repo link or demo here.</p>
+          <a class="small-link" href="#">Open</a>
+        </article>
+
+        <article class="card">
+          <h3>Notes / Cheats</h3>
+          <p class="muted">Store your one-pagers, formula sheets, or practice sets.</p>
+          <a class="small-link" href="#">Open</a>
+        </article>
+
+        <article class="card">
+          <h3>Mini Game</h3>
+          <p class="muted">A tiny JavaScript game or experiment.</p>
+          <a class="small-link" href="#">Open</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="contact appear">
+      <h2>Contact</h2>
+      <div class="contact-grid">
+        <form id="contactForm" class="form-card" action="https://formspree.io/f/YOUR_ID_HERE" method="POST">
+          <!-- replace YOUR_ID_HERE with your Formspree ID, or use mailto fallback -->
+          <label>
+            <span>Name</span>
+            <input name="name" type="text" placeholder="Your name" required>
+          </label>
+
+          <label>
+            <span>Email</span>
+            <input name="email" type="email" placeholder="you@example.com" required>
+          </label>
+
+          <label>
+            <span>Message</span>
+            <textarea name="message" rows="5" placeholder="What do you want to say?" required></textarea>
+          </label>
+
+          <div class="form-row">
+            <button type="submit" class="btn">Send</button>
+            <button type="button" id="mailtoBtn" class="btn ghost">Open mail client</button>
+          </div>
+
+          <p class="muted small" style="margin-top:8px">Filler contact info: <strong>xsh0u3</strong> • <em>New Delhi</em></p>
+        </form>
+
+        <aside class="info-card">
+          <h3>Other ways</h3>
+          <p class="muted">Email: <a href="mailto:youremail@example.com">youremail@example.com</a></p>
+          <p class="muted">LinkedIn: <a href="#">/in/yourprofile</a></p>
+          <p class="muted">Resume: <a href="#">Download (PDF)</a></p>
+        </aside>
+      </div>
+    </section>
+
+    <footer class="footer appear">
+      <small>Made by xsh0u3 • GitHub Pages</small>
     </footer>
+  </main>
 
-  </div>
+  <script src="script.js"></script>
 </body>
 </html>
