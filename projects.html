@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>xsh0u3 — projects</title>
+  <link rel="stylesheet" href="style.css?v=4">
+</head>
+<body>
+  <header class="nav">
+    <div class="nav-left">
+      <a class="brand" href="index.html">xsh0u3</a>
+      <nav class="links">
+        <a href="index.html">Home</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+
+    <div class="nav-right">
+      <button id="themeToggle" aria-label="Toggle theme">🌗</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="appear">
+      <h1>Projects</h1>
+      <p class="muted">This page holds project cards and a small JavaScript mini-game to play right in your browser.</p>
+    </section>
+
+    <section class="cards appear">
+      <h2>List</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Click Game (play)</h3>
+          <p class="muted">A simple reaction/aim game. Click the circle as many times as you can in 20 seconds.</p>
+          <a class="small-link" href="#play">Play →</a>
+        </article>
+
+        <article class="card">
+          <h3>Notes / Cheats</h3>
+          <p class="muted">One-pagers and quick references.</p>
+          <a class="small-link" href="#">Open</a>
+        </article>
+
+        <article class="card">
+          <h3>Mini Experiments</h3>
+          <p class="muted">Tiny web experiments and demos.</p>
+          <a class="small-link" href="#">Open</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="play" class="appear">
+      <h2>Click-the-Circle Game</h2>
+      <p class="muted small">Click the circle as fast as you can. Score counts hits. Game lasts 20s.</p>
+
+      <div class="game-area" style="margin-top:12px;">
+        <div id="gameBox" class="card" style="padding:18px; text-align:center;">
+          <div id="hud" style="margin-bottom:12px;">
+            <span>Time: <strong id="time">20</strong>s</span> •
+            <span>Score: <strong id="score">0</strong></span>
+          </div>
+
+          <div id="playfield" style="position:relative; height:320px; background:rgba(255,255,255,0.015); border-radius:8px; overflow:hidden;">
+            <!-- circle will be injected here -->
+          </div>
+
+          <div style="margin-top:12px;">
+            <button id="startBtn" class="btn">Start</button>
+            <button id="resetBtn" class="btn ghost">Reset</button>
+          </div>
+
+          <p id="final" class="muted small" style="margin-top:8px; display:none;"></p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer appear">
+      <small>Made by xsh0u3 • GitHub Pages</small>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+
+  <!-- small self-contained game script -->
+  <script>
+  (function(){
+    const playfield = document.getElementById('playfield');
+    const startBtn = document.getElementById('startBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const timeEl = document.getElementById('time');
+    const scoreEl = document.getElementById('score');
+    const final = document.getElementById('final');
+
+    let score = 0;
+    let timeLeft = 20;
+    let timer = null;
+    let active = false;
+    let circle = null;
+
+    function rand(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+
+    function spawnCircle(){
+      if (!active) return;
+      if (circle) circle.remove();
+
+      const size = rand(30,70);
+      circle = document.createElement('div');
+      circle.style.width = size+'px';
+      circle.style.height = size+'px';
+      circle.style.borderRadius = '50%';
+      circle.style.position = 'absolute';
+      circle.style.cursor = 'pointer';
+      circle.style.background = 'linear-gradient(180deg,#7dd3fc,#4fbde8)';
+      circle.style.boxShadow = '0 8px 18px rgba(2,6,23,0.35)';
+
+      const pad = 8;
+      const maxX = Math.max(0, playfield.clientWidth - size - pad);
+      const maxY = Math.max(0, playfield.clientHeight - size - pad);
+      circle.style.left = rand(pad, maxX)+'px';
+      circle.style.top = rand(pad, maxY)+'px';
+
+      circle.addEventListener('click', () => {
+        score++;
+        scoreEl.textContent = score;
+        spawnCircle();
+      });
+
+      playfield.appendChild(circle);
+    }
+
+    function tick(){
+      timeLeft--;
+      timeEl.textContent = timeLeft;
+      if (timeLeft <= 0){
+        endGame();
+      }
+    }
+
+    function startGame(){
+      if (active) return;
+      score = 0;
+      timeLeft = 20;
+      active = true;
+      scoreEl.textContent = score;
+      timeEl.textContent = timeLeft;
+      final.style.display = 'none';
+      spawnCircle();
+      timer = setInterval(tick, 1000);
+    }
+
+    function endGame(){
+      active = false;
+      clearInterval(timer);
+      if (circle) circle.remove();
+      final.style.display = 'block';
+      final.textContent = 'Finished — Score: ' + score + '. Refresh or Reset to play again.';
+    }
+
+    startBtn.addEventListener('click', startGame);
+    resetBtn.addEventListener('click', () => {
+      clearInterval(timer);
+      active = false;
+      score = 0;
+      timeLeft = 20;
+      scoreEl.textContent = score;
+      timeEl.textContent = timeLeft;
+      if (circle) circle.remove();
+      final.style.display = 'none';
+    });
+
+    // make sure playfield size updates on resize so spawn positions are correct
+    window.addEventListener('resize', () => {
+      // no-op, spawn uses clientWidth each time
+    });
+  })();
+  </script>
+</body>
+</html>
